@@ -41,8 +41,9 @@ subprojects {
         }
     }
     docker {
-        dockerFile = 'src/main/docker/Dockerfile'
         dockerRepository = 'vadimdissa'
+        buildDir = 'src/main/docker/build'
+        dockerFile = 'src/main/docker/Dockerfile'
         buildContext = 'src/main/docker'
     }
 }
