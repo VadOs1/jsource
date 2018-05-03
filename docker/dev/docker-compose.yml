@@ -1,0 +1,6 @@
+version: '3'
+services:
+  configserver:
+     image:   vadimdissa/config-server
+     ports:
+       - "8888:8888"
