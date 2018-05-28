@@ -5,4 +5,4 @@
 ### `BackEnd:`
 1. **gradlew clean build dockerBuild**
 2. **docker push vadimdissa/config-server**
-3. **docker-compose -f docker/dev/docker-compose.yml up**
+3. **docker-compose -f docker/common/docker-compose.yml -f docker/dev/docker-compose.yml up**
