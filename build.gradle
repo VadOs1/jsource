@@ -42,6 +42,7 @@ subprojects {
     }
     docker {
         dockerRepository = 'vadimdissa'
+        imageVersion = version
         buildDir = 'src/main/docker/build'
         dockerFile = 'src/main/docker/Dockerfile'
         buildContext = 'src/main/docker'
