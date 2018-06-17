@@ -13,7 +13,7 @@ buildscript {
 }
 
 group = 'us.jsource'
-version = '0.0.1-SNAPSHOT'
+version = (findProperty('version') == 'unspecified') ? '0.0.1-SNAPSHOT' : version
 
 subprojects {
     apply plugin: 'java'
@@ -45,5 +45,6 @@ subprojects {
         buildDir = 'src/main/docker/build'
         dockerFile = 'src/main/docker/Dockerfile'
         buildContext = 'src/main/docker'
+        buildArgs = ['http_proxy': version]
     }
 }

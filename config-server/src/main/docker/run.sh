@@ -1,3 +1,3 @@
 #!/bin/sh
 
-java -jar /usr/local/configserver/config-server-0.0.1-SNAPSHOT.jar
+java -jar /usr/local/configserver/config-server-${version}.jar
