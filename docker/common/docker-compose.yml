@@ -1,4 +1,4 @@
 version: '3'
 services:
   configserver:
-     image:   vadimdissa/config-server
+     image:   vadimdissa/config-server:latest
