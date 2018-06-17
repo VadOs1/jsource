@@ -4,3 +4,13 @@ services:
     ports:
       - "8888:8888"
     container_name: configserver-dev
+
+  database:
+    image: postgres:10.4
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB:       "jsource"
+    container_name: postgres-dev
