@@ -1,51 +1,31 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.1.RELEASE'
-        dockerFilePluginVersion = '0.5'
+        springCloudVersion = 'Finchley.SR1'
+        springBootGradlePluginVersion = '2.0.5.RELEASE'
     }
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("org.sglahn:gradle-dockerfile-plugin:${dockerFilePluginVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootGradlePluginVersion}")
     }
 }
 
-group = 'us.jsource'
-version = (findProperty('version') == 'unspecified') ? '0.0.1-SNAPSHOT' : version
-
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'eclipse'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'dockerfile'
 
-    sourceCompatibility = 9
-    targetCompatibility = 9
+    sourceCompatibility = 10
+    targetCompatibility = 10
 
     repositories {
         mavenCentral()
-        maven { url "https://repo.spring.io/milestone" }
     }
-    ext {
-        springCloudVersion = 'Finchley.M9'
-    }
-    dependencies {
-        testCompile('org.springframework.boot:spring-boot-starter-test')
-    }
+
     dependencyManagement {
         imports {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         }
-    }
-    docker {
-        dockerRepository = 'vadimdissa'
-        tags = [version, 'latest']
-        buildDir = 'src/main/docker/build'
-        dockerFile = 'src/main/docker/Dockerfile'
-        buildContext = 'src/main/docker'
-        buildArgs = ['http_proxy': version]
     }
 }
