@@ -6,7 +6,6 @@ services:
     container_name: configserver-dev
 
   database:
-    image: postgres:10.4
     ports:
       - "5432:5432"
     environment:

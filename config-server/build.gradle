@@ -1,10 +1,28 @@
 apply from: '../build.gradle'
 apply plugin: 'application'
+
 mainClassName = "us.jsource.configserver.ConfigServerApplication"
+
 dependencies {
     compile('org.springframework.cloud:spring-cloud-config-server')
 }
 
-docker {
-    imageName = 'config-server'
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('build/libs/Dockerfile')
+    from 'openjdk:9'
+    instruction 'RUN mkdir usr/local/config-server'
+    copyFile("config-server-${version}.jar", "/usr/local/config-server-${version}.jar")
+    entryPoint 'java'
+    defaultCommand '-jar', "/usr/local/config-server-${version}.jar"
 }
+
+task buildImage(type: DockerBuildImage) {
+    dependsOn createDockerfile
+    inputDir = createDockerfile.destFile.parentFile
+    tag = "vadimdissa/config-server:${version}"
+}
+
+build.finalizedBy(buildImage)
