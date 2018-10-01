@@ -2,26 +2,31 @@ buildscript {
     ext {
         springCloudVersion = 'Finchley.SR1'
         springBootGradlePluginVersion = '2.0.5.RELEASE'
+        gradleDockerPluginVersion = '3.6.1'
     }
     repositories {
         mavenCentral()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootGradlePluginVersion}")
+        classpath("com.bmuschko:gradle-docker-plugin:${gradleDockerPluginVersion}")
     }
 }
+
+group = 'us.jsource'
+version = (findProperty('version') == 'unspecified') ? '0' : version
 
 subprojects {
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
+    apply plugin: 'com.bmuschko.docker-remote-api'
     apply plugin: 'io.spring.dependency-management'
 
-    sourceCompatibility = 10
-    targetCompatibility = 10
-
-    repositories {
-        mavenCentral()
-    }
+    sourceCompatibility = 9
+    targetCompatibility = 9
 
     dependencyManagement {
         imports {
