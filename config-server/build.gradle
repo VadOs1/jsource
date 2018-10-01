@@ -22,7 +22,7 @@ task createDockerfile(type: Dockerfile) {
 task buildImage(type: DockerBuildImage) {
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
-    tag = "config-server/${version}:latest"
+    tag = "vadimdissa/config-server:${version}"
 }
 
 build.finalizedBy(buildImage)

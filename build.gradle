@@ -17,7 +17,7 @@ buildscript {
 }
 
 group = 'us.jsource'
-version = (findProperty('version') == 'unspecified') ? '0' : version
+version = (findProperty('version') == 'unspecified') ? '0.0.1' : version
 
 subprojects {
     apply plugin: 'java'
