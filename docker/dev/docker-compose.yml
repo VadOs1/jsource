@@ -5,6 +5,11 @@ services:
       - "8888:8888"
     container_name: configserver-dev
 
+  eurekaserver:
+    ports:
+      - "8761:8761"
+    container_name: eurekaserver-dev
+
   database:
     ports:
       - "5432:5432"
