@@ -4,6 +4,10 @@ services:
     ports:
       - "8888:8888"
     container_name: configserver-dev
+    environment:
+      SERVER_PORT: 8888
+      SPRING_CLOUD_CONFIG_SERVER_GIT_URI: "https://github.com/VadOs1/jsource/"
+      SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/auth-service"
 
   eurekaserver:
     ports:
