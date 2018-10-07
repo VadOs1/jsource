@@ -9,6 +9,9 @@ services:
     ports:
       - "8761:8761"
     container_name: eurekaserver-dev
+    environment:
+      SERVER_PORT: 8761
+      EUREKA_INSTANCE_HOSTNAME: "localhost"
 
   database:
     ports:
