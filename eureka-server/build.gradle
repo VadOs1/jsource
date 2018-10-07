@@ -20,9 +20,12 @@ task createDockerfile(type: Dockerfile) {
     instruction 'RUN mkdir usr/local/eureka-server'
     copyFile("eureka-server-${version}.jar", "/usr/local/eureka-server-${version}.jar")
     entryPoint 'java'
-    defaultCommand '-jar', 
+    defaultCommand '-jar',
             '-Dserver.port=${SERVER_PORT}',
             '-Deureka.instance.hostname=${EUREKA_INSTANCE_HOSTNAME}',
+            '-Deureka.client.registerWithEureka=${EUREKA_CLIENT_REGISTERWITHEUREKA}',
+            '-Deureka.client.fetchRegistry=${EUREKA_CLIENT_FETCHREGISTRY}',
+            '-Deureka.server.waitTimeInMsWhenSyncEmpty=${EUREKA_SERVER_WAITTIMEINMSWHENSYNCEMPTY}',
             "/usr/local/eureka-server-${version}.jar"
 }
 
