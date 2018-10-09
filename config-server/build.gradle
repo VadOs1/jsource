@@ -5,6 +5,7 @@ mainClassName = "us.jsource.configserver.ConfigServerApplication"
 
 dependencies {
     compile('org.springframework.cloud:spring-cloud-config-server')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 }
 
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
