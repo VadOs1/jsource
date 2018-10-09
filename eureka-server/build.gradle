@@ -1,0 +1,38 @@
+apply from: '../build.gradle'
+apply plugin: 'application'
+
+mainClassName = "us.jsource.eureka.EurekaServerApplication"
+
+dependencies {
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
+    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
+    compile group: 'javax.activation', name: 'activation', version: '1.1.1'
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+}
+
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('build/libs/Dockerfile')
+    from 'openjdk:9'
+    instruction 'RUN mkdir usr/local/eureka-server'
+    copyFile("eureka-server-${version}.jar", "/usr/local/eureka-server-${version}.jar")
+    entryPoint 'java'
+    defaultCommand '-jar',
+            '-Dserver.port=${SERVER_PORT}',
+            '-Deureka.instance.hostname=${EUREKA_INSTANCE_HOSTNAME}',
+            '-Deureka.client.registerWithEureka=${EUREKA_CLIENT_REGISTERWITHEUREKA}',
+            '-Deureka.client.fetchRegistry=${EUREKA_CLIENT_FETCHREGISTRY}',
+            '-Deureka.server.waitTimeInMsWhenSyncEmpty=${EUREKA_SERVER_WAITTIMEINMSWHENSYNCEMPTY}',
+            "/usr/local/eureka-server-${version}.jar"
+}
+
+task buildImage(type: DockerBuildImage) {
+    dependsOn createDockerfile
+    inputDir = createDockerfile.destFile.parentFile
+    tag = "vadimdissa/eureka-server:${version}"
+}
+
+build.finalizedBy(buildImage)
