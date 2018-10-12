@@ -1,11 +1,11 @@
 version: '3'
 services:
 
-  configserver:
+  config-server:
     ports:
       - "8888:8888"
 
-  eurekaserver:
+  eureka-server:
     ports:
       - "8761:8761"
 
