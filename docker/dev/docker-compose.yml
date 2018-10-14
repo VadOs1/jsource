@@ -1,17 +1,6 @@
 version: '3'
 services:
 
-  config-server-1:
-    container_name: config-server-1
-    image:   vadimdissa/config-server:0.0.1
-    ports:
-      - "8888:8888"
-    environment:
-      SERVER_PORT: 8888
-      SPRING_CLOUD_CONFIG_SERVER_GIT_URI: "https://github.com/VadOs1/jsource"
-      SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/auth-service"
-      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
-
   eureka-server-1:
     container_name: eureka-server-1
     image:   vadimdissa/eureka-server:0.0.1
@@ -21,9 +10,44 @@ services:
       SERVER_PORT: 8761
       EUREKA_INSTANCE_HOSTNAME: "eureka-server-1"
       EUREKA_INSTANCE_PREFERIPADDRESS: "false"
-      EUREKA_CLIENT_REGISTERWITHEUREKA: "false"
-      EUREKA_CLIENT_FETCHREGISTRY: "false"
+      EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
+      EUREKA_CLIENT_FETCHREGISTRY: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server-2:8762/eureka"
+
+  eureka-server-2:
+    container_name: eureka-server-2
+    image:   vadimdissa/eureka-server:0.0.1
+    ports:
+    - "8762:8762"
+    environment:
+      SERVER_PORT: 8762
+      EUREKA_INSTANCE_HOSTNAME: "eureka-server-2"
+      EUREKA_INSTANCE_PREFERIPADDRESS: "false"
+      EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
+      EUREKA_CLIENT_FETCHREGISTRY: "true"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
+
+  config-server-1:
+    container_name: config-server-1
+    image:   vadimdissa/config-server:0.0.1
+    ports:
+    - "8888:8888"
+    environment:
+      SERVER_PORT: 8888
+      SPRING_CLOUD_CONFIG_SERVER_GIT_URI: "https://github.com/VadOs1/jsource"
+      SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/auth-service"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
+
+  config-server-2:
+    container_name: config-server-2
+    image:   vadimdissa/config-server:0.0.1
+    ports:
+    - "8889:8889"
+    environment:
+      SERVER_PORT: 8889
+      SPRING_CLOUD_CONFIG_SERVER_GIT_URI: "https://github.com/VadOs1/jsource"
+      SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/auth-service"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-2:8762/eureka"
 
   postgres-database:
     container_name: postgres-database-1
