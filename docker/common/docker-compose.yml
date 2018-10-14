@@ -1,8 +1,0 @@
-version: '3'
-services:
-  config-server:
-    image:   vadimdissa/config-server:0.0.1
-  eureka-server:
-    image:   vadimdissa/eureka-server:0.0.1
-  database:
-    image: postgres:10.4
