@@ -49,6 +49,15 @@ services:
       SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/superkid-service"
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-2:8762/eureka"
 
+  superkid-service-1:
+    container_name: superkid-service-1
+    image:   vadimdissa/superkid-service:0.0.1
+    ports:
+    - "8000:8000"
+    environment:
+      SERVER_PORT: 8000
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka, http://eureka-server-2:8762/eureka"
+
   postgres-database:
     container_name: postgres-database-1
     image: postgres:10.4
