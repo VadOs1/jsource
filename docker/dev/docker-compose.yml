@@ -35,7 +35,7 @@ services:
     environment:
       SERVER_PORT: 8888
       SPRING_CLOUD_CONFIG_SERVER_GIT_URI: "https://github.com/VadOs1/jsource"
-      SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/auth-service"
+      SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/superkid-service"
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
 
   config-server-2:
@@ -46,7 +46,7 @@ services:
     environment:
       SERVER_PORT: 8889
       SPRING_CLOUD_CONFIG_SERVER_GIT_URI: "https://github.com/VadOs1/jsource"
-      SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/auth-service"
+      SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/superkid-service"
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-2:8762/eureka"
 
   postgres-database:
