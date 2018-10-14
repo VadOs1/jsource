@@ -5,6 +5,7 @@ mainClassName = "us.jsource.configserver.ConfigServerApplication"
 
 dependencies {
     compile('org.springframework.cloud:spring-cloud-config-server')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 }
 
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
@@ -20,6 +21,7 @@ task createDockerfile(type: Dockerfile) {
             '-Dserver.port=${SERVER_PORT}',
             '-Dspring.cloud.config.server.git.uri=${SPRING_CLOUD_CONFIG_SERVER_GIT_URI}',
             '-Dspring.cloud.config.server.git.searchPaths=${SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS}',
+            '-Deureka.client.serviceUrl.defaultZone=${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}',
             "/usr/local/config-server-${version}.jar"
 }
 

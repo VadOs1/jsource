@@ -23,9 +23,10 @@ task createDockerfile(type: Dockerfile) {
     defaultCommand '-jar',
             '-Dserver.port=${SERVER_PORT}',
             '-Deureka.instance.hostname=${EUREKA_INSTANCE_HOSTNAME}',
+            '-Deureka.instance.preferIpAddress=${EUREKA_INSTANCE_PREFERIPADDRESS}',
             '-Deureka.client.registerWithEureka=${EUREKA_CLIENT_REGISTERWITHEUREKA}',
             '-Deureka.client.fetchRegistry=${EUREKA_CLIENT_FETCHREGISTRY}',
-            '-Deureka.server.waitTimeInMsWhenSyncEmpty=${EUREKA_SERVER_WAITTIMEINMSWHENSYNCEMPTY}',
+            '-Deureka.client.serviceUrl.defaultZone=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}',
             "/usr/local/eureka-server-${version}.jar"
 }
 
