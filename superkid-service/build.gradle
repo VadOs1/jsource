@@ -29,6 +29,7 @@ task createDockerfile(type: Dockerfile) {
     copyFile("superkid-service-${version}.jar", "/usr/local/superkid-service-${version}.jar")
     entryPoint 'java'
     defaultCommand '-jar',
+            '-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE}',
             '-Deureka.client.service-url.defaultZone=${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}',
             '-Dspring.datasource.url=${SPRING_DATASOURCE_URL}',
             '-Dspring.datasource.username=${SPRING_DATASOURCE_USERNAME}',

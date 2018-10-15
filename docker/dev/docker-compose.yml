@@ -56,6 +56,7 @@ services:
     - "8000:8000"
     environment:
       SERVER_PORT: 8000
+      SPRING_PROFILES_ACTIVE: "dev"
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka, http://eureka-server-2:8762/eureka"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-database-1:5432/superkid_service"
       SPRING_DATASOURCE_USERNAME: "postgres"
