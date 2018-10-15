@@ -4,8 +4,17 @@ apply plugin: 'application'
 mainClassName = "us.jsource.superkid.SuperkidServiceApplication"
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: "${jaxbVersion}"
+    runtime('org.postgresql:postgresql')
+    compileOnly('org.projectlombok:lombok')
+}
+
+compileJava {
+    options.compilerArgs += '-proc:none'
 }
 
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
@@ -19,6 +28,9 @@ task createDockerfile(type: Dockerfile) {
     entryPoint 'java'
     defaultCommand '-jar',
             '-Deureka.client.service-url.defaultZone=${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}',
+            '-Dspring.datasource.url=${SPRING_DATASOURCE_URL}',
+            '-Dspring.datasource.username=${SPRING_DATASOURCE_USERNAME}',
+            '-Dspring.datasource.password=${SPRING_DATASOURCE_PASSWORD}',
             "/usr/local/superkid-service-${version}.jar"
 }
 

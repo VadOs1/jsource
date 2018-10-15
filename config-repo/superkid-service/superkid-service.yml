@@ -1,1 +1,9 @@
-superkid-service.profile: default
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+    open-in-view: false

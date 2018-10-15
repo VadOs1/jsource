@@ -57,6 +57,9 @@ services:
     environment:
       SERVER_PORT: 8000
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka, http://eureka-server-2:8762/eureka"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-database-1:5432/superkid_service"
+      SPRING_DATASOURCE_USERNAME: "postgres"
+      SPRING_DATASOURCE_PASSWORD: "password"
 
   postgres-database:
     container_name: postgres-database-1
@@ -66,4 +69,4 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "password"
-      POSTGRES_DB:       "jsource"
+      POSTGRES_DB:       "superkid_service"

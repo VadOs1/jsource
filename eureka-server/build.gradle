@@ -4,11 +4,11 @@ apply plugin: 'application'
 mainClassName = "us.jsource.eureka.EurekaServerApplication"
 
 dependencies {
-    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
-    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
-    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
-    compile group: 'javax.activation', name: 'activation', version: '1.1.1'
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: "${jaxbVersion}"
+    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: "${jaxbVersion}"
+    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: "${jaxbVersion}"
+    compile group: 'javax.activation', name: 'activation', version: "${javaxActivationVersion}"
 }
 
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
