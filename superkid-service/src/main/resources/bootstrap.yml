@@ -1,3 +1,11 @@
 spring:
   application:
     name: superkid-service
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: config-server
+      fail-fast: true
+      retry:
+        max-attempts: 100
