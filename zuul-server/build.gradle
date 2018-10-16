@@ -6,7 +6,6 @@ mainClassName = "us.jsource.zuul.ZuulServerApplication"
 dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
     compile("org.springframework.cloud:spring-cloud-starter-zuul:${springCloudZuulVersion}")
-    compile("org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudHystrixVersion}")
 }
 
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
