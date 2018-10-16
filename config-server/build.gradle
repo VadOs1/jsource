@@ -8,8 +8,9 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 }
 
-import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 task createDockerfile(type: Dockerfile) {
     destFile = project.file('build/libs/Dockerfile')
