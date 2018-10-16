@@ -1,4 +1,5 @@
 rootProject.name = 'jsource'
 include 'eureka-server'
 include 'config-server'
+include 'zuul-server'
 include 'superkid-service'

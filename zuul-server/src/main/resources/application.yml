@@ -1,0 +1,5 @@
+zuul:
+  ignored-services: '*'
+  prefix: '/api'
+  routes:
+    superkid-service: '/superkid-service/**'

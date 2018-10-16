@@ -49,6 +49,15 @@ services:
       SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/superkid-service"
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-2:8762/eureka"
 
+  zuul-server-1:
+    container_name: zuul-server-1
+    image:   vadimdissa/zuul-server:0.0.1
+    ports:
+    - "5555:5555"
+    environment:
+      SERVER_PORT: 5555
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka, http://eureka-server-2:8762/eureka"
+
   superkid-service-1:
     container_name: superkid-service-1
     image:   vadimdissa/superkid-service:0.0.1

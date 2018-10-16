@@ -1,0 +1,33 @@
+apply from: '../build.gradle'
+apply plugin: 'application'
+
+mainClassName = "us.jsource.zuul.ZuulServerApplication"
+
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    compile("org.springframework.cloud:spring-cloud-starter-zuul:${springCloudZuulVersion}")
+    compile("org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudHystrixVersion}")
+}
+
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('build/libs/Dockerfile')
+    from 'openjdk:9'
+    instruction 'RUN mkdir usr/local/zuul-server'
+    copyFile("zuul-server-${version}.jar", "/usr/local/zuul-server-${version}.jar")
+    entryPoint 'java'
+    defaultCommand '-jar',
+            '-Dserver.port=${SERVER_PORT}',
+            '-Deureka.client.service-url.defaultZone=${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}',
+            "/usr/local/zuul-server-${version}.jar"
+}
+
+task buildImage(type: DockerBuildImage) {
+    dependsOn createDockerfile
+    inputDir = createDockerfile.destFile.parentFile
+    tag = "vadimdissa/zuul-server:${version}"
+}
+
+build.finalizedBy(buildImage)
