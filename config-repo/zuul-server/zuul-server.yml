@@ -1,8 +1,8 @@
 zuul:
   #ignored-services: '*'
-  prefix: '/api'
-  routes:
-    superkid-service: '/superkid-service/**'
+  #prefix: '/api'
+  #routes:
+    #superkid-service: '/superkid-service/**'
 
 hystrix:
   command:
@@ -10,7 +10,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 1500
+            timeoutInMilliseconds: 4000
     fallbackcmd:
       execution:
         isolation:
@@ -19,5 +19,5 @@ hystrix:
 
 superkid-service:
   ribbon:
-    connectTimeout: 500
-    readTimeout: 1000
+    ConnectTimeout: 1000
+    ReadTimeout: 1000
