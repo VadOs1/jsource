@@ -3,3 +3,21 @@ zuul:
   prefix: '/api'
   routes:
     superkid-service: '/superkid-service/**'
+
+hystrix:
+  command:
+    superkid-service:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 800
+
+superkid-service:
+  ribbon:
+    ConnectTimeout: 500
+    ReadTimeout: 1000
