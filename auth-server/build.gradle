@@ -1,0 +1,36 @@
+apply from: '../build.gradle'
+apply plugin: 'application'
+
+mainClassName = "us.jsource.zuul.AuthServerApplication"
+
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-security')
+    compile("org.springframework.security.oauth:spring-security-oauth2")
+    compile("javax.xml.bind:jaxb-api:${jaxbVersion}")
+    compile("com.sun.xml.bind:jaxb-core:${jaxbVersion}")
+    compile("com.sun.xml.bind:jaxb-impl:${jaxbVersion}")
+    compile("javax.activation:activation:${javaxActivationVersion}")
+}
+
+
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('build/libs/Dockerfile')
+    from 'openjdk:9'
+    instruction 'RUN mkdir usr/local/auth-server'
+    copyFile("auth-server-${version}.jar", "/usr/local/auth-server-${version}.jar")
+    entryPoint 'java'
+    defaultCommand '-jar',
+            '-Dserver.port=${SERVER_PORT}',
+            "/usr/local/auth-server-${version}.jar"
+}
+
+task buildImage(type: DockerBuildImage) {
+    dependsOn createDockerfile
+    inputDir = createDockerfile.destFile.parentFile
+    tag = "vadimdissa/auth-server:${version}"
+}
+
+build.finalizedBy(buildImage)
