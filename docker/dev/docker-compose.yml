@@ -79,4 +79,4 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "password"
-      POSTGRES_DB:       "superkid_service"
+      POSTGRES_DB: "superkid_service"
