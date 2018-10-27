@@ -1,11 +1,13 @@
 apply from: '../build.gradle'
 apply plugin: 'application'
 
-mainClassName = "us.jsource.zuul.AuthServerApplication"
+mainClassName = "us.jsource.auth.AuthServerApplication"
 
 dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
     compile('org.springframework.cloud:spring-cloud-security')
     compile("org.springframework.security.oauth:spring-security-oauth2")
+    compile("org.springframework.retry:spring-retry:${springRetryVersion}")
     compile("javax.xml.bind:jaxb-api:${jaxbVersion}")
     compile("com.sun.xml.bind:jaxb-core:${jaxbVersion}")
     compile("com.sun.xml.bind:jaxb-impl:${jaxbVersion}")
@@ -24,6 +26,7 @@ task createDockerfile(type: Dockerfile) {
     entryPoint 'java'
     defaultCommand '-jar',
             '-Dserver.port=${SERVER_PORT}',
+            '-Deureka.client.service-url.defaultZone=${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}',
             "/usr/local/auth-server-${version}.jar"
 }
 

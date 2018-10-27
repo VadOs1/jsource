@@ -12,19 +12,6 @@ services:
       EUREKA_INSTANCE_PREFERIPADDRESS: "false"
       EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
       EUREKA_CLIENT_FETCHREGISTRY: "true"
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server-2:8762/eureka"
-
-  eureka-server-2:
-    container_name: eureka-server-2
-    image:   vadimdissa/eureka-server:0.0.1
-    ports:
-    - "8762:8762"
-    environment:
-      SERVER_PORT: 8762
-      EUREKA_INSTANCE_HOSTNAME: "eureka-server-2"
-      EUREKA_INSTANCE_PREFERIPADDRESS: "false"
-      EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
-      EUREKA_CLIENT_FETCHREGISTRY: "true"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
 
   config-server-1:
@@ -38,17 +25,6 @@ services:
       SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/zuul-server, config-repo/superkid-service"
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
 
-  config-server-2:
-    container_name: config-server-2
-    image:   vadimdissa/config-server:0.0.1
-    ports:
-    - "8889:8889"
-    environment:
-      SERVER_PORT: 8889
-      SPRING_CLOUD_CONFIG_SERVER_GIT_URI: "https://github.com/VadOs1/jsource"
-      SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/zuul-server, config-repo/superkid-service"
-      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-2:8762/eureka"
-
   zuul-server-1:
     container_name: zuul-server-1
     image:   vadimdissa/zuul-server:0.0.1
@@ -56,7 +32,16 @@ services:
     - "5555:5555"
     environment:
       SERVER_PORT: 5555
-      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka, http://eureka-server-2:8762/eureka"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
+
+  auth-server-1:
+    container_name: auth-server-1
+    image:   vadimdissa/auth-server:0.0.1
+    ports:
+    - "8001:8001"
+    environment:
+      SERVER_PORT: 8001
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
 
   superkid-service-1:
     container_name: superkid-service-1
@@ -66,7 +51,7 @@ services:
     environment:
       SERVER_PORT: 8000
       SPRING_PROFILES_ACTIVE: "dev"
-      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka, http://eureka-server-2:8762/eureka"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-database-1:5432/superkid_service"
       SPRING_DATASOURCE_USERNAME: "postgres"
       SPRING_DATASOURCE_PASSWORD: "password"
