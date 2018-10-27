@@ -2,6 +2,7 @@ zuul:
   ignored-services: '*'
   prefix: '/api'
   routes:
+    auth-server: '/auth-server/**'
     superkid-service: '/superkid-service/**'
 
 hystrix:
