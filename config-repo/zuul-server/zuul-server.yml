@@ -1,6 +1,7 @@
 zuul:
   ignored-services: '*'
   prefix: '/api'
+  sensitiveHeaders: Cookie,Set-Cookie
   routes:
     auth-server: '/auth-server/**'
     superkid-service: '/superkid-service/**'

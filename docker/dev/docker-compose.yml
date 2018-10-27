@@ -38,9 +38,9 @@ services:
     container_name: auth-server-1
     image:   vadimdissa/auth-server:0.0.1
     ports:
-    - "8001:8001"
+    - "8901:8901"
     environment:
-      SERVER_PORT: 8001
+      SERVER_PORT: 8901
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
 
   superkid-service-1:
