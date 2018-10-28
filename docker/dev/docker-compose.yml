@@ -74,4 +74,4 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "password"
-      POSTGRES_DB: "auth-server"
+      POSTGRES_DB: "auth_server"
