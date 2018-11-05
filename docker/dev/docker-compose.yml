@@ -58,6 +58,7 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-database-1:5432/superkid_service"
       SPRING_DATASOURCE_USERNAME: "postgres"
       SPRING_DATASOURCE_PASSWORD: "password"
+      SECURITY_OAUTH2_RESOURCE_USERINFOURI: "http://auth-server-1:8901/user"
 
   postgres-database-1:
     container_name: postgres-database-1

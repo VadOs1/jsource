@@ -6,11 +6,16 @@ mainClassName = "us.jsource.superkid.SuperkidServiceApplication"
 dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
     compile('org.springframework.cloud:spring-cloud-starter-config')
+    compile('org.springframework.cloud:spring-cloud-security')
+    compile("org.springframework.security.oauth:spring-security-oauth2")
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile("org.springframework.retry:spring-retry:${springRetryVersion}")
     compile("javax.xml.bind:jaxb-api:${jaxbVersion}")
+    compile("com.sun.xml.bind:jaxb-core:${jaxbVersion}")
+    compile("com.sun.xml.bind:jaxb-impl:${jaxbVersion}")
+    compile("javax.activation:activation:${javaxActivationVersion}")
     runtime('org.postgresql:postgresql')
     compileOnly('org.projectlombok:lombok')
 }
@@ -36,6 +41,7 @@ task createDockerfile(type: Dockerfile) {
             '-Dspring.datasource.url=${SPRING_DATASOURCE_URL}',
             '-Dspring.datasource.username=${SPRING_DATASOURCE_USERNAME}',
             '-Dspring.datasource.password=${SPRING_DATASOURCE_PASSWORD}',
+            '-Dsecurity.oauth2.resource.userInfoUri=${SECURITY_OAUTH2_RESOURCE_USERINFOURI}',
             "/usr/local/superkid-service-${version}.jar"
 }
 
