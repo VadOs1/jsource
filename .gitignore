@@ -1,2 +1,5 @@
 .idea
 *.iml
+deployment/stage/*.tfstate
+deployment/stage/*.tfstate.backup
+deployment/stage/.terraform
