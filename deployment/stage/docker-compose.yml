@@ -1,0 +1,81 @@
+version: '3'
+services:
+
+  eureka-server-1:
+    container_name: eureka-server-1
+    image:   vadimdissa/eureka-server:0.0.1
+    ports:
+      - "8761:8761"
+    environment:
+      SERVER_PORT: 8761
+      EUREKA_INSTANCE_HOSTNAME: "eureka-server-1"
+      EUREKA_INSTANCE_PREFERIPADDRESS: "false"
+      EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
+      EUREKA_CLIENT_FETCHREGISTRY: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
+
+  config-server-1:
+    container_name: config-server-1
+    image:   vadimdissa/config-server:0.0.1
+    ports:
+    - "8888:8888"
+    environment:
+      SERVER_PORT: 8888
+      SPRING_CLOUD_CONFIG_SERVER_GIT_URI: "https://github.com/VadOs1/jsource"
+      SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS: "config-repo/zuul-server, config-repo/superkid-service, config-repo/auth-server"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
+
+  zuul-server-1:
+    container_name: zuul-server-1
+    image:   vadimdissa/zuul-server:0.0.1
+    ports:
+    - "5555:5555"
+    environment:
+      SERVER_PORT: 5555
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
+
+  auth-server-1:
+    container_name: auth-server-1
+    image:   vadimdissa/auth-server:0.0.1
+    ports:
+    - "8901:8901"
+    environment:
+      SERVER_PORT: 8901
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-database-2:5432/auth_server"
+      SPRING_DATASOURCE_USERNAME: "postgres"
+      SPRING_DATASOURCE_PASSWORD: "password"
+
+  superkid-service-1:
+    container_name: superkid-service-1
+    image:   vadimdissa/superkid-service:0.0.1
+    ports:
+    - "8000:8000"
+    environment:
+      SERVER_PORT: 8000
+      SPRING_PROFILES_ACTIVE: "dev"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server-1:8761/eureka"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-database-1:5432/superkid_service"
+      SPRING_DATASOURCE_USERNAME: "postgres"
+      SPRING_DATASOURCE_PASSWORD: "password"
+      SECURITY_OAUTH2_RESOURCE_USERINFOURI: "http://auth-server-1:8901/user"
+
+  postgres-database-1:
+    container_name: postgres-database-1
+    image: postgres:10.4
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "superkid_service"
+
+  postgres-database-2:
+    container_name: postgres-database-2
+    image: postgres:10.4
+    ports:
+    - "5433:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "auth_server"

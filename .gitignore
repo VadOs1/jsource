@@ -3,3 +3,6 @@
 deployment/stage/*.tfstate
 deployment/stage/*.tfstate.backup
 deployment/stage/.terraform
+deployment/stage/*.info
+deployment/stage/*.pem
+deployment/stage/*.ppk
