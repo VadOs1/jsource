@@ -5,7 +5,7 @@ buildscript {
         jaxbVersion = '2.3.0'
         javaxActivationVersion = '1.1.1'
         springBootGradlePluginVersion = '2.0.5.RELEASE'
-        gradleDockerPluginVersion = '3.6.1'
+        gradleDockerPluginVersion = '6.1.1'
     }
     repositories {
         mavenCentral()
