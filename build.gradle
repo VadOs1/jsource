@@ -4,7 +4,7 @@ buildscript {
         springRetryVersion = '1.2.2.RELEASE'
         jaxbVersion = '2.3.0'
         javaxActivationVersion = '1.1.1'
-        springBootGradlePluginVersion = '2.0.5.RELEASE'
+        springBootGradlePluginVersion = '2.4.0'
         gradleDockerPluginVersion = '3.6.1'
     }
     repositories {
